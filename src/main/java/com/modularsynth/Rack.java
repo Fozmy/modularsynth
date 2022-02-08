@@ -10,21 +10,24 @@ import net.beadsproject.beads.ugens.WavePlayer;
  */
 public class Rack 
 {
+    private static void processCommand(String cmd){
+        if(cmd.equals("ls") || cmd.equals("list")){
+            listModules();
+        }
+    }
+
+    private static void listModules(){
+
+    }
+
     public static void main( String[] args )
     {
         Scanner scan = new Scanner(System.in);
-        AudioContext ac = new AudioContext();
-        WavePlayer wp = new WavePlayer(ac, 440.0f, Buffer.SINE);
-        ac.out.addInput(wp);
-        ac.start();
-        int input = 1;
-        while(input != 0){
-            input = scan.nextInt();
-            if(input != 0){
-                wp.setFrequency((float)input);
-            }
+        String input = "";
+        while(!(input.equals("exit"))){
+            input = scan.next();
+            processCommand(input);
         }
-        ac.stop();
         scan.close();
     }
 }
