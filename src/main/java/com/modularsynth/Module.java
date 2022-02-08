@@ -1,19 +1,15 @@
 package com.modularsynth;
 
-import net.beadsproject.beads.core.AudioContext;
 import net.beadsproject.beads.core.UGen;
 
-public class Module extends UGen{
+public abstract class Module{
 
-    public Module(AudioContext context) {
-        super(context);
-        //TODO Auto-generated constructor stub
-    }
+    private String name;
+
+    public abstract UGen getOutput();
 
     @Override
-    public void calculateBuffer() {
-        // TODO Auto-generated method stub
-        
+    public String toString(){
+        return name;
     }
-    
 }
