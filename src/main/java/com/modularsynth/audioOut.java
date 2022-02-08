@@ -7,6 +7,7 @@ public class audioOut extends Module{
     AudioContext ac;
 
     public audioOut() {
+        super("Audio Out");
         ac = new AudioContext();
     }
 
@@ -24,5 +25,10 @@ public class audioOut extends Module{
             System.err.println("Unable to add "+m+" as an input");
             return false;
         }
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }
