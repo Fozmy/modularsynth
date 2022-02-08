@@ -11,13 +11,15 @@ public class audioOut extends Module{
         ac = new AudioContext();
     }
 
-    public UGen getOutput(){
-        return null;
+    public AudioContext getAudioContext(){
+        return ac;
     }
 
+    @Override
     public boolean addInput(Module m){
         try{
             ac.out.addInput(m.getOutput());
+            inputs.add(m);
             return true;
         }
         catch(Exception e){
@@ -28,7 +30,7 @@ public class audioOut extends Module{
     }
 
     @Override
-    public String toString(){
-        return name;
+    public UGen getOutput() {
+        return null;
     }
 }
