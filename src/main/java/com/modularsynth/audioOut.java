@@ -7,7 +7,7 @@ public class audioOut extends Module{
     AudioContext ac;
 
     public audioOut() {
-        super("Audio Out");
+        super("Audio Out", 0);
         ac = new AudioContext();
         ac.start();
     }

@@ -7,9 +7,11 @@ import net.beadsproject.beads.core.UGen;
 public abstract class Module{
     public String name;
     ArrayList<Module> inputs;
+    int index;
 
-    public Module(String name){
+    public Module(String name, int index){
         this.name = name;
+        this.index = index;
         inputs = new ArrayList<>();
     }
 
@@ -17,7 +19,7 @@ public abstract class Module{
     public String toString(){
         String s = ""+name;
         for(Module m : inputs){
-            s += " <-- "+m+" ";
+            s += " <-- "+"["+index+"] "+m+" ";
         }
         return s;
     }

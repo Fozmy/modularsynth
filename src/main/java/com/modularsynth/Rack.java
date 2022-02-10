@@ -10,17 +10,24 @@ public class Rack {
     private static ArrayList<Module> modules = new ArrayList<>();
 
     private static void processCommand(String cmd, Scanner scan) {
-        if (cmd.equals("ls") || cmd.equals("list")) {
+        if (cmd.equalsIgnoreCase("ls") || cmd.equalsIgnoreCase("list")) {
             listModules();
-        } else if (cmd.equals("create")) {
+        } 
+        else if (cmd.equalsIgnoreCase("create")) {
             String module = scan.next();
-            if (module.equals("Osc") || module.equals("Oscillator")) {
-                modules.add(new Oscillator((audioOut) modules.get(0)));
+            if (module.equalsIgnoreCase("Osc") || module.equalsIgnoreCase("Oscillator")) {
+                modules.add(new Oscillator((audioOut) modules.get(0), modules.size()+1));
             }
-        } else if (cmd.equals("input")) {
+        } 
+        else if (cmd.equals("input")) {
             int send = scan.nextInt();
             int recieve = scan.nextInt();
             modules.get(recieve).addInput(modules.get(send));
+        }
+        else if (cmd.equalsIgnoreCase("setfreq")){
+            int recieve = scan.nextInt();
+            float freq = scan.nextFloat();
+            ((Oscillator)modules.get(recieve)).setFrequency(freq);
         }
     }
 
