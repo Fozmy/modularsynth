@@ -1,6 +1,7 @@
 package com.modularsynth;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,14 +21,52 @@ public class Rack {
             }
         } 
         else if (cmd.equals("input")) {
-            int send = scan.nextInt();
-            int recieve = scan.nextInt();
-            modules.get(recieve).addInput(modules.get(send));
+            int send;
+            int recieve;
+            try{
+                send = scan.nextInt();
+                recieve = scan.nextInt();
+                if(send < 0 || send > modules.size()-1 || recieve < 0 || recieve > modules.size()-1){
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+                modules.get(recieve).addInput(modules.get(send));
+            }
+            catch(InputMismatchException e){
+                System.err.println("Error: wrong parameters, input [# index of sender] [# index of receiver]");
+                scan.nextLine();
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                System.err.println("Error: unknown module selected");
+                scan.nextLine();
+            }
+            
         }
         else if (cmd.equalsIgnoreCase("setfreq")){
-            int recieve = scan.nextInt();
-            float freq = scan.nextFloat();
-            ((Oscillator)modules.get(recieve)).setFrequency(freq);
+            int recieve;
+            float freq;
+            try{
+                recieve = scan.nextInt();
+                freq = scan.nextFloat();
+                if(recieve < 0 || recieve > modules.size()-1){
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+                ((Oscillator)modules.get(recieve)).setFrequency(freq);
+            }
+            catch(InputMismatchException e){
+                System.err.println("Error: wrong parameters, setfreq [# index of osc] [frequency]");
+                scan.nextLine();
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                System.err.println("Error: unknown module selected");
+                scan.nextLine();
+            }
+        }
+        else if (cmd.equalsIgnoreCase("exit")){
+            System.out.println("Exiting program");
+        }
+        else{
+            System.out.println(cmd + ": Unknown command");
+            scan.nextLine();
         }
     }
 
