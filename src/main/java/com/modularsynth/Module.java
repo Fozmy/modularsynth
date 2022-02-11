@@ -15,6 +15,10 @@ public abstract class Module{
         inputs = new ArrayList<>();
     }
 
+    public int getIndex(){
+        return index;
+    }
+
     @Override
     public String toString(){
         String s = ""+name;

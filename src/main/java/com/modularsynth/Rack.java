@@ -17,7 +17,10 @@ public class Rack {
         else if (cmd.equalsIgnoreCase("create")) {
             String module = scan.next();
             if (module.equalsIgnoreCase("Osc") || module.equalsIgnoreCase("Oscillator")) {
-                modules.add(new Oscillator((audioOut) modules.get(0), modules.size()+1));
+                modules.add(new Oscillator((audioOut) modules.get(0), modules.size()));
+            }
+            else if(module.equalsIgnoreCase("vca")){
+                modules.add(new VCA((audioOut) modules.get(0), modules.size()));
             }
         } 
         else if (cmd.equals("input")) {
@@ -41,7 +44,7 @@ public class Rack {
             }
             
         }
-        else if (cmd.equalsIgnoreCase("setfreq")){
+        else if (cmd.equalsIgnoreCase("setfreq") || cmd.equalsIgnoreCase("sf")){
             int recieve;
             float freq;
             try{
@@ -50,10 +53,36 @@ public class Rack {
                 if(recieve < 0 || recieve > modules.size()-1){
                     throw new ArrayIndexOutOfBoundsException();
                 }
+                if(!(modules.get(recieve) instanceof Oscillator)){
+                    throw new InputMismatchException();
+                }
                 ((Oscillator)modules.get(recieve)).setFrequency(freq);
             }
             catch(InputMismatchException e){
                 System.err.println("Error: wrong parameters, setfreq [# index of osc] [frequency]");
+                scan.nextLine();
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                System.err.println("Error: unknown module selected");
+                scan.nextLine();
+            }
+        }
+        else if(cmd.equalsIgnoreCase("setlevel") || cmd.equalsIgnoreCase("sl")){
+            int recieve;
+            float level;
+            try{
+                recieve = scan.nextInt();
+                level = scan.nextFloat();
+                if(recieve < 0 || recieve > modules.size()-1){
+                    throw new ArrayIndexOutOfBoundsException();
+                }
+                if(!(modules.get(recieve) instanceof VCA)){
+                    throw new InputMismatchException();
+                }
+                ((VCA)modules.get(recieve)).setLevel(level);
+            }
+            catch(InputMismatchException e){
+                System.err.println("Error: wrong parameters, setlevel [# index of osc] [level]");
                 scan.nextLine();
             }
             catch(ArrayIndexOutOfBoundsException e){
