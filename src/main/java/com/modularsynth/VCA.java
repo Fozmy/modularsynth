@@ -10,7 +10,6 @@ public class VCA extends Module{
     public VCA(audioOut ac, int index) {
         super("VCA", index);
         vca = new Gain(ac.getAudioContext(), 4);
-        System.out.println(getIndex());
     }
 
     public void setLevel(float gain){
@@ -26,16 +25,14 @@ public class VCA extends Module{
     }
 
     @Override
-    public boolean addInput(Module m) {
+    public void addInput(Module m) {
         try{
             vca.addInput(m.getOutput());
             inputs.add(m);
         }
         catch(Exception e){
-            System.err.println(e);
-            return false;
+            System.err.println("Error: unable to input "+m+" into "+name);
         }
-        return true;
     }
     
 }

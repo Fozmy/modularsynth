@@ -21,7 +21,7 @@ public class Oscillator extends Module{
     }
 
     @Override
-    public boolean addInput(Module m) {
+    public void addInput(Module m) {
         try{
             if(m instanceof Oscillator){
                 WavePlayer modulator = (WavePlayer)m.getOutput();
@@ -42,9 +42,8 @@ public class Oscillator extends Module{
         }
         catch(Exception e){
             System.err.println(e);
-            return false;
+            System.err.println("Unable to input "+m+" into "+name);
         }
-        return true;
     }
     
     public void setFrequency(float freq){

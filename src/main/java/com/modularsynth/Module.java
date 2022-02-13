@@ -15,6 +15,10 @@ public abstract class Module{
         inputs = new ArrayList<>();
     }
 
+    public void decrementIndex(){
+    	index--;
+    }
+    
     public int getIndex(){
         return index;
     }
@@ -30,5 +34,5 @@ public abstract class Module{
 
     public abstract UGen getOutput();
 
-    public abstract boolean addInput(Module m);
+    public abstract void addInput(Module m);
 }

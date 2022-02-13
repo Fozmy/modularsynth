@@ -1,3 +1,4 @@
 *.class
 com.modularsynth.AppTest.txt
 TEST-com.modularsynth.AppTest.xml
+/target/

@@ -22,7 +22,32 @@ public class Rack {
             else if(module.equalsIgnoreCase("vca")){
                 modules.add(new VCA((audioOut) modules.get(0), modules.size()));
             }
+            else {
+            	System.err.println("Error: unknown input");
+            }
         } 
+        else if(cmd.equalsIgnoreCase("rm") || cmd.equalsIgnoreCase("remove")) {
+        	int index;
+        	try {
+        		index = scan.nextInt();
+        		if(index == 0) {
+        			throw new InputMismatchException();
+        		}
+        		else if(index < 1 || index > modules.size()-1) {
+        			throw new ArrayIndexOutOfBoundsException();
+        		}
+        		modules.remove(index);
+        		for(int i = index; i < modules.size(); i++) {
+        			modules.get(i).decrementIndex();
+        		}
+        	}
+        	catch(InputMismatchException e) {
+        		System.err.println("Error: wrong parameters, rm|remove [index (not 0)]");
+        	}
+        	catch(ArrayIndexOutOfBoundsException e){
+        		System.err.println("Error: unknown module selected");
+        	}
+        }
         else if (cmd.equals("input")) {
             int send;
             int recieve;

@@ -17,16 +17,14 @@ public class audioOut extends Module{
     }
 
     @Override
-    public boolean addInput(Module m){
+    public void addInput(Module m){
         try{
             ac.out.addInput(m.getOutput());
             inputs.add(m);
-            return true;
         }
         catch(Exception e){
             System.err.println(e);
             System.err.println("Unable to add "+m+" as an input");
-            return false;
         }
     }
 
